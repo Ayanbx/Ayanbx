@@ -1,0 +1,85 @@
+* {
+  box-sizing: border-box;
+  font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(135deg, #0f172a, #1e293b);
+  color: #f8fafc;
+}
+
+.calculator {
+  width: min(360px, 92vw);
+  padding: 1.2rem;
+  border-radius: 1rem;
+  background: #0b1220;
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.4);
+}
+
+h1 {
+  margin-top: 0;
+  margin-bottom: 0.75rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.display {
+  width: 100%;
+  margin-bottom: 0.75rem;
+  border: none;
+  border-radius: 0.75rem;
+  padding: 0.9rem;
+  text-align: right;
+  font-size: 1.7rem;
+  color: #e2e8f0;
+  background: #111827;
+}
+
+.keys {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.55rem;
+}
+
+button {
+  border: 0;
+  border-radius: 0.7rem;
+  padding: 0.85rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #e2e8f0;
+  background: #1f2937;
+  cursor: pointer;
+}
+
+button:hover {
+  filter: brightness(1.12);
+}
+
+button:active {
+  transform: scale(0.98);
+}
+
+button[data-action="equals"] {
+  background: #2563eb;
+}
+
+button[data-action="clear"],
+button[data-action="delete"] {
+  background: #374151;
+}
+
+button[data-value="/"],
+button[data-value="*"],
+button[data-value="-"],
+button[data-value="+"] {
+  background: #334155;
+}
+
+.span-2 {
+  grid-column: span 2;
+}
