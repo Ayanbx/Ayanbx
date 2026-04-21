@@ -3,37 +3,19 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Calculator App</title>
+    <title>Flappy Bird</title>
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <main class="calculator" aria-label="Calculator">
-      <h1>Calculator</h1>
-      <input id="display" class="display" type="text" value="0" readonly aria-live="polite" />
-      <div class="keys" role="group" aria-label="Calculator keys">
-        <button data-action="clear" class="span-2">AC</button>
-        <button data-action="delete">DEL</button>
-        <button data-value="/">÷</button>
-
-        <button data-value="7">7</button>
-        <button data-value="8">8</button>
-        <button data-value="9">9</button>
-        <button data-value="*">×</button>
-
-        <button data-value="4">4</button>
-        <button data-value="5">5</button>
-        <button data-value="6">6</button>
-        <button data-value="-">−</button>
-
-        <button data-value="1">1</button>
-        <button data-value="2">2</button>
-        <button data-value="3">3</button>
-        <button data-value="+">+</button>
-
-        <button data-value="0" class="span-2">0</button>
-        <button data-value=".">.</button>
-        <button data-action="equals">=</button>
+    <main class="game-shell" aria-label="Flappy Bird game">
+      <h1>Flappy Bird</h1>
+      <p class="hint">Press <kbd>Space</kbd> or click/tap to flap. Press <kbd>R</kbd> to restart.</p>
+      <canvas id="game" width="400" height="600" role="img" aria-label="Flappy Bird playfield"></canvas>
+      <div class="hud" aria-live="polite">
+        <span>Score: <strong id="score">0</strong></span>
+        <span>Best: <strong id="best">0</strong></span>
       </div>
+      <p id="status" class="status">Press Space to Start</p>
     </main>
 
     <script src="script.js"></script>
