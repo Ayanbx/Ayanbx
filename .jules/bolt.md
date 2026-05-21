@@ -1,0 +1,3 @@
+## 2024-03-21 - Unnecessary DOM Updates in Vanilla JS Applications
+**Learning:** Even simple DOM updates like setting `element.value` trigger internal browser operations (setter logic, potential reflow/repaint preparation) even if the new value is identical to the current one. In frequently triggered event handlers (like keystrokes or UI interactions), unconditionally updating the DOM can cause measurable, unnecessary overhead.
+**Action:** Always implement a "dirty check" (`if (element.value !== newValue)`) before updating DOM element properties, especially in functions called frequently on the critical path or tied to user input events.

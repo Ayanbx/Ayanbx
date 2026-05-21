@@ -4,7 +4,10 @@ const keys = document.querySelector(".keys");
 let expression = "0";
 
 const updateDisplay = () => {
-  display.value = expression;
+  // ⚡ Bolt: Prevent unnecessary DOM updates
+  if (display.value !== expression) {
+    display.value = expression;
+  }
 };
 
 const isOperator = (char) => ["+", "-", "*", "/"].includes(char);
