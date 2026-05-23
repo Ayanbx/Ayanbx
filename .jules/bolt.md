@@ -1,0 +1,3 @@
+## 2026-05-23 - Avoid regex and array allocation on hot paths in parsing
+**Learning:** In vanilla JS string parsing, using `.split(/[+\-*/]/).at(-1)` creates multiple intermediate arrays and runs a regex engine just to find the last segment of a string. Similarly, `[...].includes(char)` creates a new array on every call.
+**Action:** Replace `Array.includes` with boolean OR checks for small fixed sets. Replace `String.prototype.split` with backward iteration (`for` loop) when only information about the last segment is needed. This significantly reduces execution time and garbage collection overhead.
