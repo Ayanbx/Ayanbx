@@ -7,7 +7,8 @@ const updateDisplay = () => {
   display.value = expression;
 };
 
-const isOperator = (char) => ["+", "-", "*", "/"].includes(char);
+// ⚡ Bolt: Removed array allocation for faster operator checking
+const isOperator = (char) => char === "+" || char === "-" || char === "*" || char === "/";
 
 const appendValue = (value) => {
   if (expression === "0" && value !== ".") {
@@ -23,8 +24,19 @@ const appendValue = (value) => {
   }
 
   if (value === ".") {
-    const currentNumber = expression.split(/[+\-*/]/).at(-1);
-    if (currentNumber.includes(".")) return;
+    // ⚡ Bolt: Iterate backwards instead of regex split + array allocation
+    let hasDot = false;
+    for (let i = expression.length - 1; i >= 0; i--) {
+      const c = expression[i];
+      if (c === ".") {
+        hasDot = true;
+        break;
+      }
+      if (isOperator(c)) {
+        break;
+      }
+    }
+    if (hasDot) return;
   }
 
   expression += value;
