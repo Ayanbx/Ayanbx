@@ -7,7 +7,7 @@ const updateDisplay = () => {
   display.value = expression;
 };
 
-const isOperator = (char) => ["+", "-", "*", "/"].includes(char);
+const isOperator = (char) => "+-*/".includes(char);
 
 const appendValue = (value) => {
   if (expression === "0" && value !== ".") {
@@ -23,8 +23,11 @@ const appendValue = (value) => {
   }
 
   if (value === ".") {
-    const currentNumber = expression.split(/[+\-*/]/).at(-1);
-    if (currentNumber.includes(".")) return;
+    // Performance: Avoid O(N) memory allocation from .split() by scanning backwards
+    for (let i = expression.length - 1; i >= 0; i--) {
+      if ("+-*/".includes(expression[i])) break;
+      if (expression[i] === ".") return;
+    }
   }
 
   expression += value;

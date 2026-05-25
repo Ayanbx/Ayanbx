@@ -1,0 +1,3 @@
+## 2024-05-18 - Prevent O(N) Array Allocations in Hot Paths
+**Learning:** Using array literals (e.g., `['+', '-', '*', '/'].includes(char)`) or string operations that yield arrays (e.g., `string.split()`) in frequently executed paths (like keystroke handlers) incurs an O(N) memory allocation penalty on every execution. In vanilla JS without build tools, string checks (e.g., `"+-*/".includes(char)`) and backward `for` loops are much faster and more memory efficient.
+**Action:** Default to raw strings for `.includes()` and reverse scanning loops instead of array conversions (like `split` or `.at(-1)` on arrays) when performing checks in hot-path event listeners.
