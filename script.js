@@ -4,10 +4,14 @@ const keys = document.querySelector(".keys");
 let expression = "0";
 
 const updateDisplay = () => {
-  display.value = expression;
+  // ⚡ Bolt: Prevent unnecessary DOM writes to reduce layout/repaint overhead
+  if (display.value !== expression) {
+    display.value = expression;
+  }
 };
 
-const isOperator = (char) => ["+", "-", "*", "/"].includes(char);
+// ⚡ Bolt: Use string inclusion to prevent array instantiation in hot path (reduces memory allocation)
+const isOperator = (char) => "+-*/".includes(char);
 
 const appendValue = (value) => {
   if (expression === "0" && value !== ".") {
