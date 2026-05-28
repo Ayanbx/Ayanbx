@@ -1,0 +1,3 @@
+## 2024-05-28 - [Memory Allocation Optimization in String Parsing]
+**Learning:** Using `String.prototype.split` with regex on a growing string (like an expression buffer) just to check the last segment is an O(n) operation that allocates a new array of strings every single time a key is pressed. This is particularly wasteful in high-frequency events (like calculator key presses).
+**Action:** Replace `split` and similar array-allocating string parsing methods with simple reverse loops (`for (let i = str.length - 1; i >= 0; i--)`) to check for conditions like decimal point presence in the current token. It avoids memory allocation and acts as an O(k) operation where k is the length of the current segment.

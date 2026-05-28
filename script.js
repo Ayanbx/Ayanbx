@@ -7,7 +7,8 @@ const updateDisplay = () => {
   display.value = expression;
 };
 
-const isOperator = (char) => ["+", "-", "*", "/"].includes(char);
+// ⚡ Bolt: Replaced array allocation with simple string check for O(1) memory
+const isOperator = (char) => "+-*/".includes(char);
 
 const appendValue = (value) => {
   if (expression === "0" && value !== ".") {
@@ -23,8 +24,13 @@ const appendValue = (value) => {
   }
 
   if (value === ".") {
-    const currentNumber = expression.split(/[+\-*/]/).at(-1);
-    if (currentNumber.includes(".")) return;
+    // ⚡ Bolt: Replaced O(n) String.split() and regex with O(k) reverse loop
+    // to prevent unnecessary string array allocations when typing decimals
+    for (let i = expression.length - 1; i >= 0; i--) {
+      const char = expression[i];
+      if (isOperator(char)) break;
+      if (char === ".") return;
+    }
   }
 
   expression += value;
