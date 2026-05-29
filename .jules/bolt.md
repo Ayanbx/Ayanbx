@@ -1,0 +1,3 @@
+## 2024-05-18 - Avoid array allocation in utility functions
+**Learning:** Defining arrays inline within frequently called utility functions like `const isOperator = (char) => ["+", "-", "*", "/"].includes(char);` causes a new array allocation on every execution, leading to garbage collection overhead and degraded performance. Direct boolean comparison is significantly faster.
+**Action:** Replace inline array `includes` with direct OR comparisons (`char === '+' || char === '-' ...`) or extract the array/Set to the module scope for frequent operations.

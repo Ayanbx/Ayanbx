@@ -7,7 +7,8 @@ const updateDisplay = () => {
   display.value = expression;
 };
 
-const isOperator = (char) => ["+", "-", "*", "/"].includes(char);
+// ⚡ Bolt: Use direct comparison instead of array allocation for performance
+const isOperator = (char) => char === "+" || char === "-" || char === "*" || char === "/";
 
 const appendValue = (value) => {
   if (expression === "0" && value !== ".") {
