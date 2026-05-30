@@ -7,7 +7,8 @@ const updateDisplay = () => {
   display.value = expression;
 };
 
-const isOperator = (char) => ["+", "-", "*", "/"].includes(char);
+// ⚡ Bolt: Optimize by using string lookup instead of creating an array on every call
+const isOperator = (char) => "+-*/".includes(char);
 
 const appendValue = (value) => {
   if (expression === "0" && value !== ".") {
@@ -23,8 +24,17 @@ const appendValue = (value) => {
   }
 
   if (value === ".") {
-    const currentNumber = expression.split(/[+\-*/]/).at(-1);
-    if (currentNumber.includes(".")) return;
+    // ⚡ Bolt: Optimize by finding indices instead of regex split which allocates new arrays
+    const lastOpIndex = Math.max(
+      expression.lastIndexOf("+"),
+      expression.lastIndexOf("-"),
+      expression.lastIndexOf("*"),
+      expression.lastIndexOf("/")
+    );
+    const lastDotIndex = expression.lastIndexOf(".");
+
+    // If there's a dot after the last operator, we already have a decimal in the current number
+    if (lastDotIndex > lastOpIndex) return;
   }
 
   expression += value;
