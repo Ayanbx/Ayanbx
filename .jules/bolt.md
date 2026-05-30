@@ -1,0 +1,3 @@
+## 2024-05-18 - Avoid array allocation and regex in frequent operations
+**Learning:** In vanilla JavaScript, creating an array (like `["+", "-", "*", "/"]`) or splitting strings with a regex inside an event handler introduces measurable memory allocation and GC overhead. String operations like `"+-*/".includes(char)` and finding indices using `Math.max(..., expr.lastIndexOf("+"))` are significantly faster.
+**Action:** Replace small array `.includes()` with string `.includes()` for character checks, and replace regex `.split()` with index searches (`lastIndexOf`) when checking for the presence of characters in substrings.
