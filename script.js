@@ -7,7 +7,8 @@ const updateDisplay = () => {
   display.value = expression;
 };
 
-const isOperator = (char) => ["+", "-", "*", "/"].includes(char);
+// ⚡ Bolt: Use string includes instead of array allocation for faster operator checks
+const isOperator = (char) => "+-*/".includes(char);
 
 const appendValue = (value) => {
   if (expression === "0" && value !== ".") {
@@ -23,8 +24,15 @@ const appendValue = (value) => {
   }
 
   if (value === ".") {
-    const currentNumber = expression.split(/[+\-*/]/).at(-1);
-    if (currentNumber.includes(".")) return;
+    // ⚡ Bolt: Prevent array allocation and regex execution by searching backward for operators
+    const lastOpIdx = Math.max(
+      expression.lastIndexOf("+"),
+      expression.lastIndexOf("-"),
+      expression.lastIndexOf("*"),
+      expression.lastIndexOf("/")
+    );
+    const lastDecIdx = expression.lastIndexOf(".");
+    if (lastDecIdx > lastOpIdx) return;
   }
 
   expression += value;
