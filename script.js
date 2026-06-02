@@ -7,7 +7,8 @@ const updateDisplay = () => {
   display.value = expression;
 };
 
-const isOperator = (char) => ["+", "-", "*", "/"].includes(char);
+// ⚡ Bolt: Removed array allocation on every call for faster execution
+const isOperator = (char) => char === "+" || char === "-" || char === "*" || char === "/";
 
 const appendValue = (value) => {
   if (expression === "0" && value !== ".") {
