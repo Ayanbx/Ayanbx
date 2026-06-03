@@ -1,0 +1,3 @@
+## 2024-05-24 - Avoid Array Allocation in Hot Utilities
+**Learning:** Checking for operators in the calculator using `["+", "-", "*", "/"].includes(char)` was allocating a new array on every key press and every operator evaluation, taking ~515ms for 10M operations, compared to ~11ms using string checking (`"+-*/".includes(char)`). The Regex and Set approaches were also significantly slower than basic string `.includes()` for this small, fixed set of characters.
+**Action:** When performing membership tests against a short, fixed list of single characters in high-frequency utility functions (like key handlers or parsers), use `string.includes(char)` rather than inline array allocations.
