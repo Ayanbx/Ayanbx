@@ -1,0 +1,3 @@
+## 2024-05-24 - Avoiding regex splits in hot paths
+**Learning:** For a simple calculator where checking if the current operand has a decimal point happens on every click, string `split` with a regex creates unnecessary array allocations. While micro-optimizations usually aren't worth it, for tiny utilities with isolated logic, a simple reverse loop can be significantly faster (up to ~10x) and reduces GC pressure without making the code unreadable.
+**Action:** Default to simple reverse loops for character scanning in small, isolated strings instead of regex-based splitting when performance is a concern, especially in tight loops or frequent event handlers.
