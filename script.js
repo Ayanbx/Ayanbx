@@ -24,8 +24,10 @@ const appendValue = (value) => {
   }
 
   if (value === ".") {
-    const currentNumber = expression.split(/[+\-*/]/).at(-1);
-    if (currentNumber.includes(".")) return;
+    for (let i = expression.length - 1; i >= 0; i--) {
+      if (isOperator(expression[i])) break;
+      if (expression[i] === ".") return;
+    }
   }
 
   expression += value;
