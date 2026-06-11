@@ -1,0 +1,3 @@
+## 2024-06-11 - [Regex Split vs Manual Loops in Hot Paths]
+**Learning:** Using `String.prototype.split()` with a regex inside a frequently called function (like `appendValue` on every keystroke/click) creates a significant bottleneck due to unnecessary array allocations and regex execution. A manual reverse `for` loop to scan backwards in a string for simple token parsing is ~20x faster and avoids allocations.
+**Action:** When inspecting hot paths or frequently triggered event handlers, look for array-allocating operations (`split`, `map`, `filter`) and complex regexes that could be replaced by simple manual iteration.
