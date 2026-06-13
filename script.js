@@ -16,7 +16,8 @@ const appendValue = (value) => {
     return;
   }
 
-  const lastChar = expression.at(-1);
+  // Optimization: use index access instead of .at(-1) for speed
+  const lastChar = expression[expression.length - 1];
 
   if (isOperator(value) && isOperator(lastChar)) {
     expression = expression.slice(0, -1) + value;
@@ -24,8 +25,17 @@ const appendValue = (value) => {
   }
 
   if (value === ".") {
-    const currentNumber = expression.split(/[+\-*/]/).at(-1);
-    if (currentNumber.includes(".")) return;
+    // Optimization: backward string scan instead of split/array allocation
+    let hasDecimal = false;
+    for (let i = expression.length - 1; i >= 0; i--) {
+      const char = expression[i];
+      if (char === ".") {
+        hasDecimal = true;
+        break;
+      }
+      if (isOperator(char)) break;
+    }
+    if (hasDecimal) return;
   }
 
   expression += value;

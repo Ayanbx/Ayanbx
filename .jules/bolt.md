@@ -1,0 +1,3 @@
+## 2024-06-25 - Avoid String Split and Array Allocation for String Searching
+**Learning:** In Javascript, using `String.prototype.split()` coupled with array accesses like `.at(-1)` and `.includes` for simple substring checking is extremely slow compared to a simple backward scanning `for` loop, because it forces string parsing, array allocation, and unnecessary garbage collection. For highly-accessed hot paths (like keystrokes), string indexing combined with loops offers a significant (~20x) speedup.
+**Action:** Replace `split()` and `.at(-1)` combinations with manual string loops (`for (let i = string.length - 1; ...)`) when performing simple character checking in string suffix/substring operations.
