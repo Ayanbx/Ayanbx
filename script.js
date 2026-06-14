@@ -24,8 +24,12 @@ const appendValue = (value) => {
   }
 
   if (value === ".") {
-    const currentNumber = expression.split(/[+\-*/]/).at(-1);
-    if (currentNumber.includes(".")) return;
+    // Optimization: avoid array allocation and regex for decimal validation
+    for (let i = expression.length - 1; i >= 0; i--) {
+      const char = expression[i];
+      if (char === ".") return; // Already has a decimal
+      if (isOperator(char)) break; // Reached start of current number
+    }
   }
 
   expression += value;
