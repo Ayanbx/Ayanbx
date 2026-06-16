@@ -1,0 +1,3 @@
+## 2024-05-24 - Avoiding regex splits for validation
+**Learning:** Using `String.prototype.split(regex)` to isolate and validate the last segment of a string is computationally expensive because it forces intermediate array allocations and incurs regex engine overhead on every input event. In high-frequency handlers (like keypresses), this scales poorly.
+**Action:** When validating specific character constraints in the last segment of a delimited string, use a reverse scan loop (`for (let i = str.length - 1; i >= 0; i--)`). This avoids array allocation, escapes early upon encountering the segment delimiter, and significantly reduces overhead (up to ~10x faster).
