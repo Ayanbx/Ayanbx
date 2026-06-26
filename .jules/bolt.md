@@ -1,0 +1,3 @@
+## 2024-05-18 - RegExp and Array allocation bottleneck in simple checks
+**Learning:** Using `String.prototype.split()` with a regular expression (like `/[+\-*/]/`) and array methods (`.at(-1)`) to check properties of the last input segment causes significant overhead (~15-25x slower) due to unnecessary array allocation and regex execution. This is a codebase-specific pattern where simple string operations were over-engineered.
+**Action:** Replace `split` and regex lookups for simple single-character checks with backward `for` loops to prevent unnecessary memory allocations and improve CPU execution time.
