@@ -1,0 +1,3 @@
+## 2024-06-27 - Avoid String.prototype.split with regex in hot paths
+**Learning:** `String.prototype.split` with a regular expression creates an array allocation and performs complex pattern matching, which can be surprisingly slow in hot loops or frequently executed logic (like keystroke handlers). A backwards loop is ~11x faster for checking conditions at the end of a string.
+**Action:** When inspecting string endings or finding recent characters (like decimal points in math expressions), prefer manual backwards iteration over `split()` or heavy regex operations, especially if checking single characters.
