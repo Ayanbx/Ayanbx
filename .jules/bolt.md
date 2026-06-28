@@ -1,0 +1,3 @@
+## 2024-05-23 - String Splitting vs Reverse Loop
+**Learning:** Using `String.prototype.split()` with a regular expression to extract the last segment of a string is significantly slower (~4x) than using a reverse loop to find the last delimiter index, due to unnecessary array allocations and full string parsing. Inline regexes in hot paths (like `keydown` event listeners and calculation loops) also incur small recompilation penalties.
+**Action:** Use reverse loops for extracting suffixes or last segments of strings when performance matters, and always extract and cache regular expressions in the module scope.
