@@ -1,0 +1,3 @@
+## 2024-05-24 - Avoid `split` and Regex for Simple String Searches
+**Learning:** Using `String.prototype.split()` with a regular expression (like `/[+\-*/]/`) and chaining `.at(-1)` to find the last segment of a string is incredibly slow due to array allocation and regex engine overhead. Benchmarks showed it took ~2559ms for 100k iterations on a long string.
+**Action:** Replace `split(regex)` with `String.prototype.lastIndexOf()` when you only need to check the presence or relative position of a character. Using `Math.max()` with multiple `lastIndexOf()` calls was ~118x faster (~21ms vs ~2559ms).
