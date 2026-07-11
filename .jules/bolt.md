@@ -1,0 +1,3 @@
+## 2024-05-18 - Optimize Decimal Checking in Calculator App
+**Learning:** Using `String.prototype.split()` with a regular expression (e.g., `expression.split(/[+\-*/]/)`) followed by array operations (`.at(-1)`) just to look back through a string allocates unnecessary memory for intermediate arrays and incurs regex compilation overhead. For short, simple lookups—like checking if the current number string already contains a decimal point before an operator—a manual reverse `for` loop is significantly faster.
+**Action:** Always prefer manual character traversal algorithms over `.split()` with regex when doing simple substring lookups in frequently called functions, especially when minimizing memory allocation is important.
