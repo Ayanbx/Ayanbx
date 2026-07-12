@@ -1,0 +1,3 @@
+## 2024-07-12 - Avoid regex split in tight loops
+**Learning:** Checking for decimal inclusion in the current number segment used regex `split(/[+\-*/]/)` which allocated arrays and ran slower. By swapping this out for a backward loop, execution was drastically improved (by an order of magnitude in synthetic benchmarks) because it avoided array allocations and regex parsing.
+**Action:** When working on string processing where the target substring format is simple (e.g., stopping at operators), prefer backward loops or `lastIndexOf`/`indexOf` functions instead of generating intermediate arrays via regex splitting.
