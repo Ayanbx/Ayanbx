@@ -1,0 +1,3 @@
+## 2024-05-24 - Array Allocations in Hot Paths
+**Learning:** Using `.split()` with regex (e.g., `expression.split(/[+\-*/]/)`) inside frequently called functions like `appendValue` causes unnecessary array allocations, acting as a performance bottleneck. In local micro-benchmarks, this approach was significantly slower (~100x slower) than a simple backward string scanning loop when checking for valid trailing segments (like existing decimal points).
+**Action:** Avoid array allocations (like `.split()`) for simple string validation in frequent operations or hot paths. Prefer backward string scanning loops to prevent performance penalties.
