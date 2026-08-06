@@ -4,7 +4,10 @@ const keys = document.querySelector(".keys");
 let expression = "0";
 
 const updateDisplay = () => {
-  display.value = expression;
+  // ⚡ Bolt: Prevent unnecessary DOM updates
+  if (display.value !== expression) {
+    display.value = expression;
+  }
 };
 
 // Optimization: avoid array allocation on every call (~25x faster in benchmarks)
