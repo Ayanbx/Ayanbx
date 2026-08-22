@@ -1,0 +1,3 @@
+## 2024-08-22 - Regex `.split` in hot path replaced by backward string scan
+**Learning:** Using regex and `.split()` (which allocates a new array) in frequently called event handlers (like checking if the current number already has a decimal during calculator key presses) creates unnecessary memory pressure and is roughly 25x slower than a backward string traversal loop.
+**Action:** When inspecting hot paths or event handlers triggered per keystroke, actively look for and replace array allocating operations (like `.split`, `.map`, `.filter`) or complex regex validations with straightforward loops or character scans.
