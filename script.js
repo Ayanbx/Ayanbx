@@ -8,7 +8,8 @@ const updateDisplay = () => {
 };
 
 // Optimization: avoid array allocation on every call (~25x faster in benchmarks)
-const isOperator = (char) => char === "+" || char === "-" || char === "*" || char === "/";
+const isOperator = (char) =>
+  char === "+" || char === "-" || char === "*" || char === "/";
 
 const appendValue = (value) => {
   if (expression === "0" && value !== ".") {
@@ -24,8 +25,17 @@ const appendValue = (value) => {
   }
 
   if (value === ".") {
-    const currentNumber = expression.split(/[+\-*/]/).at(-1);
-    if (currentNumber.includes(".")) return;
+    // Bolt Optimization: backward scan instead of regex split + array allocation
+    let hasDecimal = false;
+    let j = expression.length - 1;
+    while (j >= 0 && !isOperator(expression[j])) {
+      if (expression[j] === ".") {
+        hasDecimal = true;
+        break;
+      }
+      j--;
+    }
+    if (hasDecimal) return;
   }
 
   expression += value;
