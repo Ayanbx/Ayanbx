@@ -1,0 +1,3 @@
+## 2026-10-14 - Avoid array allocations in hot paths like frequent string scanning
+**Learning:** Using `.split()` with regular expressions to scan the end of a string is a performance anti-pattern. In this vanilla codebase, using `expression.split(/[+\-*/]/).at(-1)` inside an input event handler created unnecessary array allocations and regex evaluations for every keystroke.
+**Action:** When validating trailing string segments (e.g. checking if the current number in an expression already has a decimal point), prefer simple backward loops instead of full string splitting to prevent performance penalties.
